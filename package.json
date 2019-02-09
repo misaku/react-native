@@ -153,10 +153,11 @@
     "test-ios-e2e": "detox test -c ios.sim.release"
   },
   "peerDependencies": {
-    "react": "16.6.3"
+    "react": "16.8.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
+    "@react-native-community/cli": "^1.1.0",
     "absolute-path": "^0.0.0",
     "art": "^0.10.0",
     "base64-js": "^1.1.2",
@@ -177,8 +178,6 @@
     "graceful-fs": "^4.1.3",
     "inquirer": "^3.0.6",
     "invariant": "^2.2.4",
-    "jest": "24.0.0-alpha.6",
-    "jest-junit": "5.2.0",
     "lodash": "^4.17.5",
     "metro-babel-register": "0.51.0",
     "metro-react-native-babel-transformer": "0.51.0",
@@ -198,7 +197,6 @@
     "prop-types": "^15.5.8",
     "react-clone-referenced-element": "^1.0.1",
     "react-devtools-core": "^3.6.0",
-    "@react-native-community/cli": "^1.1.0",
     "regenerator-runtime": "^0.11.0",
     "rimraf": "^2.5.4",
     "semver": "^5.0.3",
@@ -225,15 +223,16 @@
     "eslint-plugin-jest": "21.8.0",
     "eslint-plugin-prettier": "2.6.0",
     "eslint-plugin-react": "7.8.2",
+    "eslint-plugin-react-hooks": "^1.0.1",
     "eslint-plugin-react-native": "3.5.0",
-    "flow-bin": "^0.91.0",
+    "flow-bin": "^0.92.0",
     "jest": "24.0.0-alpha.6",
     "jest-junit": "5.2.0",
     "jscodeshift": "^0.6.2",
     "prettier": "1.13.6",
-    "react": "16.6.3",
-    "react-native-dummy": "0.1.0",
-    "react-test-renderer": "16.7.0-alpha.2",
+    "react": "16.8.1",
+    "react-native-dummy": "0.2.0",
+    "react-test-renderer": "16.8.1",
     "shelljs": "^0.7.8"
   },
   "detox": {

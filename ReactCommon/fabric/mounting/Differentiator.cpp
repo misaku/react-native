@@ -5,8 +5,8 @@
 
 #include "Differentiator.h"
 
+#include <better/map.h>
 #include <react/core/LayoutableShadowNode.h>
-#include <react/debug/SystraceSection.h>
 #include "ShadowView.h"
 
 namespace facebook {
@@ -66,7 +66,7 @@ static void calculateShadowViewMutations(
     return;
   }
 
-  std::unordered_map<Tag, ShadowViewNodePair> insertedPaires;
+  better::map<Tag, ShadowViewNodePair> insertedPairs;
   int index = 0;
 
   ShadowViewMutationList createMutations = {};
@@ -117,7 +117,7 @@ static void calculateShadowViewMutations(
     insertMutations.push_back(ShadowViewMutation::InsertMutation(
         parentShadowView, newChildPair.shadowView, index));
 
-    insertedPaires.insert({newChildPair.shadowView.tag, newChildPair});
+    insertedPairs.insert({newChildPair.shadowView.tag, newChildPair});
   }
 
   // Stage 3: Collecting `Delete` and `Remove` mutations
@@ -130,9 +130,9 @@ static void calculateShadowViewMutations(
     removeMutations.push_back(ShadowViewMutation::RemoveMutation(
         parentShadowView, oldChildPair.shadowView, index));
 
-    const auto &it = insertedPaires.find(oldChildPair.shadowView.tag);
+    const auto &it = insertedPairs.find(oldChildPair.shadowView.tag);
 
-    if (it == insertedPaires.end()) {
+    if (it == insertedPairs.end()) {
       // The old view was *not* (re)inserted.
       // We have to generate `delete` mutation and apply the algorithm
       // recursively.
@@ -164,11 +164,11 @@ static void calculateShadowViewMutations(
             newGrandChildPairs);
       }
 
-      // In any case we have to remove the view from `insertedPaires` as
+      // In any case we have to remove the view from `insertedPairs` as
       // indication that the view was actually removed (which means that
       // the view existed before), hence we don't have to generate
       // `create` mutation.
-      insertedPaires.erase(it);
+      insertedPairs.erase(it);
     }
   }
 
@@ -177,8 +177,8 @@ static void calculateShadowViewMutations(
        index++) {
     const auto &newChildPair = newChildPairs[index];
 
-    if (insertedPaires.find(newChildPair.shadowView.tag) ==
-        insertedPaires.end()) {
+    if (insertedPairs.find(newChildPair.shadowView.tag) ==
+        insertedPairs.end()) {
       // The new view was (re)inserted, so there is no need to create it.
       continue;
     }
@@ -215,8 +215,6 @@ static void calculateShadowViewMutations(
 ShadowViewMutationList calculateShadowViewMutations(
     const ShadowNode &oldRootShadowNode,
     const ShadowNode &newRootShadowNode) {
-  SystraceSection s("calculateShadowViewMutations");
-
   // Root shadow nodes must have same tag.
   assert(oldRootShadowNode.getTag() == newRootShadowNode.getTag());
 
