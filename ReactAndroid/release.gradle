@@ -93,11 +93,7 @@ afterEvaluate { project ->
     android.libraryVariants.all { variant ->
         def name = variant.name.capitalize()
         task "jar${name}"(type: Jar, dependsOn: variant.javaCompileProvider.get()) {
-<<<<<<< HEAD
-            from variant.javaCompileProvider.get().destinationDir
-=======
             from(variant.javaCompileProvider.get().destinationDir)
->>>>>>> 8ccc55fbd3683ba65500e879a6643f15f5b47942
         }
     }
 

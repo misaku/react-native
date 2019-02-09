@@ -150,16 +150,6 @@ task prepareJSC(dependsOn: downloadJSC) {
         def headerFiles = jscTar.matching({ it.include "**/include/*.h" })
 
         copy {
-<<<<<<< HEAD
-            from soFiles
-            from headerFiles
-            from "src/main/jni/third-party/jsc/Android.mk"
-
-            filesMatching("**/*.h", { it.path = "JavaScriptCore/${it.name}" })
-
-            includeEmptyDirs false
-            into "$thirdPartyNdkDir/jsc"
-=======
             from(soFiles)
             from(headerFiles)
             from("src/main/jni/third-party/jsc/Android.mk")
@@ -168,7 +158,6 @@ task prepareJSC(dependsOn: downloadJSC) {
 
             includeEmptyDirs(false)
             into("$thirdPartyNdkDir/jsc")
->>>>>>> 8ccc55fbd3683ba65500e879a6643f15f5b47942
         }
     }
 }
